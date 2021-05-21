@@ -1,0 +1,4 @@
+rootProject.name = "Anonymous Objects"
+include ':app'
+include ':domain'
+include ':data'

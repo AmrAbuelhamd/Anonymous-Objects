@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/objectListFragment">
+
+    <fragment
+        android:id="@+id/objectListFragment"
+        android:name="com.blogspot.soyamr.anonymousobjects.presentation.object_list.ObjectListFragment"
+        android:label="object_list_fragment"
+        tools:layout="@layout/object_list_fragment" >
+        <action
+            android:id="@+id/action_objectListFragment_to_geolocationFragment"
+            app:destination="@id/geolocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/geolocationFragment"
+        android:name="com.blogspot.soyamr.anonymousobjects.presentation.geolocation.GeolocationFragment"
+        android:label="geolocation_fragment"
+        tools:layout="@layout/geolocation_fragment" />
+</navigation>

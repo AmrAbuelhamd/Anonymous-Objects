@@ -1,0 +1,4 @@
+<resources>
+    <string name="weather_key" templateMergeStrategy="preserve" translatable="false">05e088d732dd897fe987fdb5e17b9521</string>
+    <string name="object_base_url" templateMergeStrategy="preserve" translatable="false">https://dl.dropboxusercontent.com/s/</string>
+</resources>

@@ -1,4 +1,4 @@
-package com.blogspot.soyamr.domain.interactors
+package com.blogspot.soyamr.domain.usecases
 
 import com.blogspot.soyamr.domain.ObjectDatasource
 import com.blogspot.soyamr.domain.models.Object

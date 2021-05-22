@@ -8,4 +8,5 @@ interface ObjectDatasource {
     fun getObjectsList(): Flow<List<Object>>
     suspend fun getObjectById(id: Int): Object
     suspend fun getGeolocation(): Geolocation
+    suspend fun updateCacheFromServer()
 }

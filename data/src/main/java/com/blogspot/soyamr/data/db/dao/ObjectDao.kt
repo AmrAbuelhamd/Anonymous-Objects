@@ -15,7 +15,7 @@ interface ObjectDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(objectsList: List<ObjectEntity>)
 
-    @Query("select * from $OBJECT_TABLE order by tags, name asc, title asc")
+    @Query("select * from $OBJECT_TABLE")
     fun getAll(): Flow<List<ObjectEntity>>
 
     @Query("select * from $OBJECT_TABLE where id like :id")

@@ -13,7 +13,7 @@ class ObjectListViewHolder private constructor(private val binding: ObjectItemBi
     fun bind(item: Object, listener: (Int) -> Unit) {
         with(binding) {
             titleTextView.text = item.title
-            nameTextView.text = item.name + "tag: " + item.tags
+            nameTextView.text = item.name + " - tag: " + item.tags
             if (!item.tags.isNullOrEmpty()) {
                 ratingBar.isVisible = true
                 ratingBar.rating = item.tags!!.size.toFloat()

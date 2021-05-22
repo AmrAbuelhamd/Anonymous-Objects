@@ -1,14 +1,11 @@
 package com.blogspot.soyamr.anonymousobjects.app.di.domain
 
-import com.blogspot.soyamr.domain.usecases.GetGeolocationImpl
-import com.blogspot.soyamr.domain.usecases.GetObjectByIdImpl
-import com.blogspot.soyamr.domain.usecases.GetObjectsListImpl
-import com.blogspot.soyamr.domain.usecases.UpdateCacheFromServerImpl
+import com.blogspot.soyamr.domain.usecases.*
 import org.koin.dsl.module
 
 val useCasesModule = module {
-    factory { GetGeolocationImpl(get()) }
-    factory { GetObjectsListImpl(get()) }
-    factory { GetObjectByIdImpl(get()) }
-    factory { UpdateCacheFromServerImpl(get()) }
+    factory { GetGeolocationImpl(get()) as GetGeolocation }
+    factory { GetObjectsListImpl(get()) as GetObjectsList}
+    factory { GetObjectByIdImpl(get()) as GetObjectById}
+    factory { UpdateCacheFromServerImpl(get()) as UpdateCacheFromServer}
 }

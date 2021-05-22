@@ -18,5 +18,9 @@
         android:id="@+id/geolocationFragment"
         android:name="com.blogspot.soyamr.anonymousobjects.presentation.geolocation.GeolocationFragment"
         android:label="geolocation_fragment"
-        tools:layout="@layout/geolocation_fragment" />
+        tools:layout="@layout/geolocation_fragment" >
+        <argument
+            android:name="objectId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

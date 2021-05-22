@@ -26,7 +26,7 @@ class LastUpdateHolderImpl(private val context: Context) : LastUpdateHolder {
 
     override suspend fun setNowAsLastUpdate() {
         context.dataStore.edit { settings ->
-            settings[key] = System.currentTimeMillis()
+            settings[key] = System.currentTimeMillis() + ONE_HOUR_MILLIS
         }
     }
 

@@ -6,4 +6,5 @@
     <string name="set_name"><b>name:</b> %s</string>
     <string name="set_title">title: %s</string>
     <string name="set_status">status: %s</string>
+    <string name="cat">cat</string>
 </resources>

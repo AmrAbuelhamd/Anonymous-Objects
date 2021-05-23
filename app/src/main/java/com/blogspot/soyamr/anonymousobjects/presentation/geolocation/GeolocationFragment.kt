@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -38,6 +39,7 @@ class GeolocationFragment : Fragment() {
         viewModel.location.observe(viewLifecycleOwner, ::onGettingLocation)
         viewModel.loading.observe(viewLifecycleOwner, ::changeLoadingState)
         viewModel.currentObject.observe(viewLifecycleOwner, ::showCurrentObjectData)
+        viewModel.error.observe(viewLifecycleOwner, ::showError)
     }
 
     private fun showCurrentObjectData(currentObject: Object?) {
@@ -90,6 +92,13 @@ class GeolocationFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
         viewModel.setCurrentObject(args.objectId)
         setupWithNavController(binding.toolbar, findNavController())
+    }
+
+    private fun showError(error: String?) {
+        error?.let {
+            if (it.isNotBlank())
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

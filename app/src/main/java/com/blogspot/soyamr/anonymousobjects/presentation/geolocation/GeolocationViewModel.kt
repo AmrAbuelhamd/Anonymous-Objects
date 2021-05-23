@@ -1,6 +1,10 @@
 package com.blogspot.soyamr.anonymousobjects.presentation.geolocation
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
+import com.blogspot.soyamr.anonymousobjects.presentation.common.BaseViewModel
 import com.blogspot.soyamr.domain.models.Object
 import com.blogspot.soyamr.domain.usecases.GetGeolocation
 import com.blogspot.soyamr.domain.usecases.GetObjectById
@@ -11,11 +15,7 @@ import kotlinx.coroutines.launch
 class GeolocationViewModel(
     val getGeolocation: GetGeolocation,
     val getObjectById: GetObjectById
-) : ViewModel() {
-
-    private val _loading = MutableLiveData(false)
-    val loading: LiveData<Boolean> = _loading
-
+) : BaseViewModel() {
 
     val location: LiveData<LatLng> = liveData {
         _loading.value = true
@@ -28,7 +28,7 @@ class GeolocationViewModel(
 
     fun setCurrentObject(id: Int) {
         _loading.value = true
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO + handler) {
             _currentObject.postValue(getObjectById(id))
         }
     }

@@ -1,20 +1,20 @@
 package com.blogspot.soyamr.anonymousobjects.presentation.object_list
 
 import androidx.lifecycle.*
+import com.blogspot.soyamr.anonymousobjects.presentation.common.BaseViewModel
 import com.blogspot.soyamr.domain.models.Object
 import com.blogspot.soyamr.domain.usecases.GetObjectsList
 import com.blogspot.soyamr.domain.usecases.UpdateCacheFromServer
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onErrorCollect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class ObjectListViewModel(
     getObjectsList: GetObjectsList,
     private val updateCacheFromServer: UpdateCacheFromServer
-) : ViewModel() {
-
-    private val _loading = MutableLiveData(false)
-    val loading: LiveData<Boolean> = _loading
+) : BaseViewModel() {
 
     val objectList: LiveData<List<Object>> =
         getObjectsList()
@@ -31,6 +31,6 @@ class ObjectListViewModel(
             .asLiveData()
 
     fun getFreshData() {
-        viewModelScope.launch { updateCacheFromServer() }
+        viewModelScope.launch(handler) { updateCacheFromServer() }
     }
 }

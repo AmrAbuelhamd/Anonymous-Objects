@@ -7,8 +7,8 @@ import com.blogspot.soyamr.data.db.DatabaseConfig.Tables.GEOLOCATION_TABLE
 
 @Entity(tableName = GEOLOCATION_TABLE)
 data class GeolocationEntity(
-    val lat: Long,
-    val lng: Long,
+    val lat: Double,
+    val lng: Double,
     @PrimaryKey
     val id: Int = 1,
 )

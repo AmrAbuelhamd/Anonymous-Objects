@@ -14,8 +14,8 @@ class ObjectListViewModel(
 ) : ViewModel() {
 
     private val _loading = MutableLiveData(false)
-
     val loading: LiveData<Boolean> = _loading
+
     val objectList: LiveData<List<Object>> =
         getObjectsList()
             .onStart { _loading.postValue(true) }

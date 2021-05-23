@@ -10,4 +10,4 @@ fun ObjectEntity.toDomain() = Object(id, name, title, tags)
 
 fun GeolocationEntity.toDomain() = Geolocation(lat, lng)
 
-fun Location.toLocal() = GeolocationEntity(gpsLat.toLong(), gpsLng.toLong())
+fun Location.toLocal() = GeolocationEntity(gpsLat, gpsLng)

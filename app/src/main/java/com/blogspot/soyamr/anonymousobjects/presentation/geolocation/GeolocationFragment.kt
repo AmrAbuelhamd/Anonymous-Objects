@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.blogspot.soyamr.anonymousobjects.R
 import com.blogspot.soyamr.anonymousobjects.databinding.GeolocationFragmentBinding
 import com.blogspot.soyamr.domain.models.Object
@@ -17,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import org.koin.android.ext.android.get
+
 
 class GeolocationFragment : Fragment() {
 
@@ -40,9 +43,9 @@ class GeolocationFragment : Fragment() {
     private fun showCurrentObjectData(currentObject: Object?) {
         currentObject?.let {
             with(binding) {
-                objectNameTextView.text = it.name
-                objectTitleTextView.text = it.title
-                statusTextView.text = it.tags.toString()
+                objectNameTextView.text = getString(R.string.set_name, it.name.toString())
+                objectTitleTextView.text = getString(R.string.set_title, it.title.toString())
+                statusTextView.text = getString(R.string.set_status, it.tags.toString())
             }
         }
     }
@@ -57,17 +60,15 @@ class GeolocationFragment : Fragment() {
         latLng?.let {
             changeLoadingState(false)
             googleMap.addMarker(MarkerOptions().position(latLng))
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15F))
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))
         }
     }
 
-    val args: GeolocationFragmentArgs by navArgs()
+    private val args: GeolocationFragmentArgs by navArgs()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
-        viewModel.setCurrentObject(args.objectId)
+    override fun onStart() {
+        super.onStart()
+        binding.toolbar.title = getString(R.string.object_data)
     }
 
     override fun onCreateView(
@@ -77,7 +78,18 @@ class GeolocationFragment : Fragment() {
         viewModel = get()
         return GeolocationFragmentBinding.inflate(inflater, container, false).run {
             _binding = this
+
+           setViews()
+
             root
         }
     }
+
+    private fun setViews() {
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+        viewModel.setCurrentObject(args.objectId)
+        setupWithNavController(binding.toolbar, findNavController())
+    }
+
 }

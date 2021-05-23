@@ -28,16 +28,6 @@ class ObjectListFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.recyclerView.adapter = objectsAdapter
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getFreshData()
-        }
-        setViewModelListeners()
-    }
-
     private fun setViewModelListeners() {
         viewModel.loading.observe(viewLifecycleOwner, ::changeLoadingState)
         viewModel.objectList.observe(viewLifecycleOwner, ::updateObjetList)
@@ -61,8 +51,14 @@ class ObjectListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         viewModel = get()
+
         return ObjectListFragmentBinding.inflate(inflater, container, false).run {
             _binding = this
+            recyclerView.adapter = objectsAdapter
+            swipeRefreshLayout.setOnRefreshListener {
+                viewModel.getFreshData()
+            }
+            setViewModelListeners()
             root
         }
     }

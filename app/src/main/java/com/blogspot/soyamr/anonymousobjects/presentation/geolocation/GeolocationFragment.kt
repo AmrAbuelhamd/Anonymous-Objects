@@ -2,6 +2,7 @@ package com.blogspot.soyamr.anonymousobjects.presentation.geolocation
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -81,7 +82,7 @@ class GeolocationFragment : Fragment() {
         return GeolocationFragmentBinding.inflate(inflater, container, false).run {
             _binding = this
 
-           setViews()
+            setViews()
 
             root
         }
@@ -92,6 +93,33 @@ class GeolocationFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
         viewModel.setCurrentObject(args.objectId)
         setupWithNavController(binding.toolbar, findNavController())
+        makeContainerDraggable()
+    }
+
+    private fun makeContainerDraggable() {
+        var rightDX = 0.0F
+        var rightDY = 0.0F
+        binding.floatingObjectInfoContainer.setOnTouchListener(
+            View.OnTouchListener { view, event ->
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        rightDX = view!!.x - event.rawX
+                        rightDY = view.y - event.rawY;
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        val displacement = event.rawX + rightDX
+                        view!!.animate()
+                            .x(displacement)
+                            .y(event.rawY + rightDY)
+                            .setDuration(0)
+                            .start()
+                    }
+                    else -> {
+                        return@OnTouchListener false
+                    }
+                }
+                true
+            })
     }
 
     private fun showError(error: String?) {
